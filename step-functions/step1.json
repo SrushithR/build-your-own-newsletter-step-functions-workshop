@@ -7,7 +7,7 @@
       "Resource": "arn:aws:states:::lambda:invoke",
       "OutputPath": "$.Payload",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-east-1:344269040775:function:send_email:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-east-1:<account_id>:function:send_email:$LATEST",
         "Payload": {
           "email_ids": [
             "abc@gmail.com"
