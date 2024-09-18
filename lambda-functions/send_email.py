@@ -19,7 +19,7 @@ def lambda_handler(event, context):
     content = event["content"]
 
     ses.send_email(
-        FromEmailAddress="<>",  # add your configured sender email address
+        FromEmailAddress="<>",  # TODO: add your configured sender email address
         Destination={
             'ToAddresses': email_ids
         },
