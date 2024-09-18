@@ -1,0 +1,58 @@
+{
+  "Comment": "Newsletter notification workflow",
+  "StartAt": "Fetch subs",
+  "States": {
+    "Fetch subs": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-east-1:<account_id>:function:fetch_subscribers:$LATEST"
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "Send Email",
+      "ResultSelector": {
+        "email_ids.$": "$.Payload.subscribers"
+      },
+      "ResultPath": "$.email_data"
+    },
+    "Send Email": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-east-1:<account_id>:function:send_email:$LATEST",
+        "Payload": {
+          "subject.$": "$.subject",
+          "content.$": "$.content",
+          "email_ids.$": "$.email_data.email_ids"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "End": true
+    }
+  }
+}
