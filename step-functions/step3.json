@@ -1,0 +1,45 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "Fetch Subscribers",
+  "States": {
+    "Fetch Subscribers": {
+      "Type": "Task",
+      "Parameters": {
+        "TableName": "newsletter-subscribers"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:dynamodb:scan",
+      "Next": "Send Email",
+      "ResultSelector": {
+        "email_ids.$": "$.Items"
+      },
+      "ResultPath": "$.email_data"
+    },
+    "Send Email": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-east-1:<account_id>:function:send_email_v2:$LATEST",
+        "Payload": {
+          "subject.$": "$.subject",
+          "content.$": "$.content",
+          "email_ids.$": "$.email_data.email_ids"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "End": true
+    }
+  }
+}

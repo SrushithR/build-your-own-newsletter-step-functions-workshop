@@ -14,7 +14,7 @@ def lambda_handler(event, context):
         }
     """
     print("input to the lambda", event)
-    email_ids = [e["email_id"] for e in event["email_ids"]]
+    email_ids = [e["email_id"]["S"] for e in event["email_ids"]]
     subject = event["subject"]
     content = event["content"]
 

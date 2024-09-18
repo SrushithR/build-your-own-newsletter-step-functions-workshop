@@ -9,5 +9,5 @@ def lambda_handler(event, context):
     subscribers = []
     for record in response["Items"]:
         print("record", record)
-        subscribers.append(record["email_id"])
+        subscribers.append({"email_id": record["email_id"]})
     return {"subscribers": subscribers}
