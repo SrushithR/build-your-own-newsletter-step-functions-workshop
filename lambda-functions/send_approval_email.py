@@ -1,4 +1,5 @@
 import boto3
+import urllib.parse
 
 ses = boto3.client('sesv2')
 
@@ -16,11 +17,13 @@ def lambda_handler(event, context):
     """
     print("input to the lambda", event)
     task_token = event["task_token"]
+    encoded_token = urllib.parse.quote(task_token)
+
     subject = event["subject"]
     content = event["content"]
 
-    approve_url = f"{function_url}?status=success&token={task_token}"
-    reject_url = f"{function_url}?status=reject&token={task_token}"
+    approve_url = f"{function_url}?status=success&token={encoded_token}"
+    reject_url = f"{function_url}?status=reject&token={encoded_token}"
 
     ses.send_email(
         FromEmailAddress="<>",  # TODO: add your configured sender email address
@@ -35,7 +38,7 @@ def lambda_handler(event, context):
                 },
                 'Body': {
                     'Html': {
-                        'Data': content + f"<br>Approve: {approve_url}<br><br>" + f"<br>Approve: {reject_url}<br><br>",
+                        'Data': content + f"<br>Approval Link: <a href={approve_url}>Link</a><br><br>" + f"<br>Rejection Link: <a href={reject_url}>Link</a><br><br>",
                         'Charset': 'UTF-8'
                     }
                 }
