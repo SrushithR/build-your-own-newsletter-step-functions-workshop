@@ -8,7 +8,9 @@
 				"ses:SendEmail",
 				"dynamodb:*",
 				"lambda:InvokeFunction",
-				"logs:*"
+				"logs:*",
+				"states:SendTaskSuccess",
+    			"states:SendTaskFailure"
 			],
 			"Resource": "*"
 		}

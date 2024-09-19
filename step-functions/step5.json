@@ -1,0 +1,103 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "Send Approval Email",
+  "States": {
+    "Send Approval Email": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-east-1:<account-id>:function:send_approval_email:$LATEST",
+        "Payload": {
+          "subject.$": "$.subject",
+          "content.$": "$.content",
+          "task_token.$": "$$.Task.Token"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.TooManyRequestsException",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "Scan",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.TaskFailed"
+          ],
+          "Next": "Pass"
+        }
+      ],
+      "ResultPath": "$.callback"
+    },
+    "Pass": {
+      "Type": "Pass",
+      "End": true
+    },
+    "Scan": {
+      "Type": "Task",
+      "Parameters": {
+        "TableName": "newsletter-subs"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:dynamodb:scan",
+      "Next": "Map",
+      "ResultSelector": {
+        "email_ids.$": "$.Items"
+      },
+      "ResultPath": "$.email_data"
+    },
+    "Map": {
+      "Type": "Map",
+      "ItemProcessor": {
+        "ProcessorConfig": {
+          "Mode": "INLINE"
+        },
+        "StartAt": "Send Email",
+        "States": {
+          "Send Email": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "OutputPath": "$.Payload",
+            "Parameters": {
+              "FunctionName": "arn:aws:lambda:us-east-1:<account-id>:function:send_email_v3:$LATEST",
+              "Payload": {
+                "subject.$": "$.subject",
+                "content.$": "$.content",
+                "email_id.$": "$.email_id"
+              }
+            },
+            "Retry": [
+              {
+                "ErrorEquals": [
+                  "Lambda.ServiceException",
+                  "Lambda.AWSLambdaException",
+                  "Lambda.SdkClientException",
+                  "Lambda.TooManyRequestsException"
+                ],
+                "IntervalSeconds": 1,
+                "MaxAttempts": 3,
+                "BackoffRate": 2
+              }
+            ],
+            "End": true
+          }
+        }
+      },
+      "End": true,
+      "MaxConcurrency": 10,
+      "ItemSelector": {
+        "subject.$": "$.subject",
+        "content.$": "$.content",
+        "email_id.$": "$$.Map.Item.Value.email_id.S"
+      },
+      "ItemsPath": "$.email_data.email_ids"
+    }
+  }
+}
