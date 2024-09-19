@@ -7,31 +7,21 @@ def lambda_handler(event, context):
     """
     Lambda function to trigger an email
     Sample Input:
-        Lambda function to trigger an email
-    Sample Input:
         {
-            "email_ids": [{
-                "email_id": {
-                  "S": "acb@gmail.com"
-                }
-                }, {
-                "email_id": {
-                  "S": "def@gmail.com"
-                }
-            }],
-          "subject": "Welcome to the workshop",
-          "content": "<p>Hello there again!</p>"
+          "email_id": "abc@gmail.com",
+          "subject": "Subject",
+          "content": "Content"
         }
     """
     print("input to the lambda", event)
-    email_ids = [e["email_id"]["S"] for e in event["email_ids"]]
+    email_ids = event["email_id"]
     subject = event["subject"]
     content = event["content"]
 
     ses.send_email(
         FromEmailAddress="<>",  # TODO: add your configured sender email address
         Destination={
-            'ToAddresses': email_ids
+            'ToAddresses': [email_ids]
         },
         Content={
             'Simple': {
