@@ -1,5 +1,7 @@
 ## Mastering AWS Step Functions: Build and Manage Your Own Newsletter
 
+### Link to the documentation - https://srushithr.github.io/build-your-own-newsletter-step-functions-workshop/
+
 ### Abstract:
 
 In this hands-on workshop, participants will learn how to design, build, and manage a fully automated newsletter system using AWS Step Functions. By the end of the workshop, attendees will have the skills to create sophisticated workflows that can handle complex business logic, scale efficiently, and integrate directly with other AWS services.
