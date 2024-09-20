@@ -15,11 +15,11 @@ For a more detailed guide, refer to the official AWS documentation on data flow 
 
 ## 1. InputPath – _What_ input does a task need?
 
-### Definition:
+**Definition:**
 
 The **InputPath** field specifies **which part of the input** to pass to the task. If your input payload is complex or contains unnecessary information, you can use InputPath to extract only the relevant portion that the task needs.
 
-### Example:
+**Example:**
 Consider the following input payload:
 
 ```json
@@ -51,11 +51,11 @@ This results in the following input to the next task:
 
 ## 2. Parameters – _How_ does the task need the structure of the input to be?
 
-### Definition:
+**Definition:**
 
 The Parameters field allows you to specify how the input should look before it is passed to the task. You can use this to build a custom structure for your input, combining dynamic values (from the input or workflow context) with static values.
 
-### Example:
+**Example:**
 Let’s say you need to pass only the pizza type and size, and you want to add a static orderID field. You can define the input structure using Parameters:
 
 ```
@@ -78,11 +78,11 @@ This transforms the input to:
 
 ## 3. ResultSelector – _What_ to choose from the task’s output?
 
-### Definition:
+**Definition:**
 
 The ResultSelector field allows you to select specific values from the output of a task. You can create a new output by defining a set of key-value pairs based on the task’s result.
 
-### Example:
+**Example:**
 If a task returns the following result after calculating the price:
 
 ```json
@@ -116,11 +116,11 @@ This creates the following output:
 
 ## 4. ResultPath – _Where_ to put the chosen output?
 
-### Definition:
+**Definition:**
 
 The ResultPath field specifies where the task’s output should be placed in the original input. You can either merge the task’s output with the input or replace the input entirely.
 
-### Example:
+**Example:**
 Consider the following input before invoking a task:
 
 ```json
@@ -168,11 +168,12 @@ The final output becomes:
 
 ## 5. OutputPath – _What_ output to send to the next state?
 
-### Definition:
+**Definition:**
 
 The OutputPath field allows you to filter the final output before passing it to the next state. This helps in removing unnecessary data and sending only the relevant information to the next state.
 
-### Example:
+**Example:**
+
 Let’s say the current state produces the following output:
 
 ```json
