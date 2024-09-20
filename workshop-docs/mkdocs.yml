@@ -10,7 +10,14 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Resources: resources.md
+  - Step 1 - Getting started: step1.md
+  - Step 2 - Fetch Data from DynamoDB: step2.md
+  - Step 3 - Intro to Direct Integrations: step3.md
+  - Understanding Input & Output Processing: io.md
+  - Step 4 - Intro to Map State: step4.md
+  - Step 5 - Call Back Pattern: step5.md
+  - Scheduling Your Step Function: schedule.md
+  - Sample Input: sample-input.md
 
 extra:
   social:

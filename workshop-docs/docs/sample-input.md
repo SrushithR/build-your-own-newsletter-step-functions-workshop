@@ -1,4 +1,6 @@
-### Sample Input:
+## Sample Input
+
+Here is a sample input that you can use to test your Step Function's execution
 
 ```json
 {
