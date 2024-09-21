@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#step-1-create-v3-of-the-send_email-lambda-function" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -262,9 +267,45 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Step 4 - Intro to Map State
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Step 4 - Intro to Map State
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-v3-of-the-send_email-lambda-function" class="md-nav__link">
+    Step 1: Create V3 of the send_email lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-the-step-function-with-the-map-state" class="md-nav__link">
+    Step 2: Create the Step Function with the Map state
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -333,6 +374,28 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-v3-of-the-send_email-lambda-function" class="md-nav__link">
+    Step 1: Create V3 of the send_email lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-the-step-function-with-the-map-state" class="md-nav__link">
+    Step 2: Create the Step Function with the Map state
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -348,6 +411,11 @@
 
   <h1>Step 4 - Intro to Map State</h1>
 
+<p>Now that we have our core setup ready, lets try to make it scalable. We will use the <code>Map</code> state in the <code>Inline</code> mode to loop through the email addresses fetched from DynamoDB. But before we proceed further, lets first create a new lambda function that can process individual emails. For this part of the workshop, please follow these steps:</p>
+<h3 id="step-1-create-v3-of-the-send_email-lambda-function">Step 1: Create V3 of the send_email lambda function</h3>
+<p>Since we are going to leverage the <code>Map</code> state and iterate over the email addresses received from DynamoDB, we have to enhance the code to process individual email address instead of an array.</p>
+<p>Use the code in the <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/send_email_v3.py">here</a></p>
+<h3 id="step-2-create-the-step-function-with-the-map-state">Step 2: Create the Step Function with the <code>Map</code> state</h3>
 <p>Step Function code reference - <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step4.json">step4.json</a></p>
 
 
