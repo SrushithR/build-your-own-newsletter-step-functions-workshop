@@ -1,6 +1,3 @@
-
-Step Function code reference - [step2.json](https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step2.json)
-
 # Step 2: Fetch Subscribers and Send Email
 
 ## 1. Create the DynamoDB Table `newsletter-subs`
