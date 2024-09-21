@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#step-2-fetch-subscribers-and-send-email" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -216,10 +221,64 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Step 2 - Fetch Data from DynamoDB
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Step 2 - Fetch Data from DynamoDB
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-the-dynamodb-table-newsletter-subs" class="md-nav__link">
+    1. Create the DynamoDB Table newsletter-subs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-the-fetch_subscribers-lambda-function" class="md-nav__link">
+    2. Create the fetch_subscribers Lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-create-step-2-sf-fetch-from-ddb-send-email" class="md-nav__link">
+    3. Create Step 2 SF (Fetch from DDB + Send Email)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-create-the-send_email_v2-lambda-function" class="md-nav__link">
+    4. Create the send_email_v2 Lambda function
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -332,6 +391,44 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-the-dynamodb-table-newsletter-subs" class="md-nav__link">
+    1. Create the DynamoDB Table newsletter-subs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-the-fetch_subscribers-lambda-function" class="md-nav__link">
+    2. Create the fetch_subscribers Lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-create-step-2-sf-fetch-from-ddb-send-email" class="md-nav__link">
+    3. Create Step 2 SF (Fetch from DDB + Send Email)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-create-the-send_email_v2-lambda-function" class="md-nav__link">
+    4. Create the send_email_v2 Lambda function
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -346,9 +443,45 @@
                   
 
 
-  <h1>Step 2 - Fetch Data from DynamoDB</h1>
-
-<p>Step Function code reference - <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step2.json">step2.json</a></p>
+<h1 id="step-2-fetch-subscribers-and-send-email">Step 2: Fetch Subscribers and Send Email</h1>
+<h2 id="1-create-the-dynamodb-table-newsletter-subs">1. Create the DynamoDB Table <code>newsletter-subs</code></h2>
+<ol>
+<li>Navigate to the <strong>DynamoDB</strong> service in the AWS Management Console.</li>
+<li>Click <strong>Create Table</strong>.</li>
+<li>Set the <strong>Table name</strong> to <code>newsletter-subs</code>.</li>
+<li>Set the <strong>Primary key</strong> to <code>email</code> (String).</li>
+<li>Configure any additional settings as needed, then click <strong>Create table</strong>.</li>
+</ol>
+<h2 id="2-create-the-fetch_subscribers-lambda-function">2. Create the <code>fetch_subscribers</code> Lambda function</h2>
+<ol>
+<li>Navigate to the <strong>Lambda</strong> service in the AWS Management Console.</li>
+<li>Click <strong>Create function</strong> and choose the <strong>Author from scratch</strong> option.</li>
+<li>Name the function <code>fetch_subscribers</code>.</li>
+<li>Select a runtime, such as <strong>Python 3.12</strong> *.</li>
+<li>In the code editor, copy the function from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/fetch_subscribers.py">here</a> to query the <code>newsletter-subs</code> DynamoDB table and return the list of subscribers.</li>
+<li>Under <strong>Permissions</strong>, use the IAM role created in Step 1 (with permissions to access DynamoDB).</li>
+<li>Click <strong>Deploy</strong>.</li>
+</ol>
+<h2 id="3-create-step-2-sf-fetch-from-ddb-send-email">3. Create Step 2 SF (Fetch from DDB + Send Email)</h2>
+<ol>
+<li>Go to the <strong>Step Functions</strong> service in the AWS Management Console.</li>
+<li>Click on <strong>Create state machine</strong>.</li>
+<li>In the state machine definition, add the following tasks as <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step2.json">json</a></li>
+<li>Name the state machine (e.g., <code>FetchAndSendStateMachine</code>), review, and create it.</li>
+</ol>
+<h2 id="4-create-the-send_email_v2-lambda-function">4. Create the <code>send_email_v2</code> Lambda function</h2>
+<ol>
+<li>Navigate to the <strong>Lambda</strong> service in the AWS Management Console.</li>
+<li>Click <strong>Create function</strong> and choose the <strong>Author from scratch</strong> option.</li>
+<li>Name the function <code>send_email_v2</code>.</li>
+<li>Select a runtime, such as <strong>Python 3.12</strong> .</li>
+<li>In the code editor, copy the function from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/send_email_v2.py">here</a></li>
+<li>Under <strong>Permissions</strong>, use the IAM role created in Step 1 (with permissions to send emails).</li>
+<li>Click <strong>Deploy</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> The IAM role permission created in Step 1 can be reused for both the <code>fetch_subscribers</code> and <code>send_email_v2</code> Lambda functions.</p>
+</blockquote>
 
 
 
