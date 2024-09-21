@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#step-function-workshop-step-1-creating-a-basic-workflow-to-send-email" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -201,10 +206,64 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Step 1 - Getting started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Step 1 - Getting started
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-the-iam-role-with-permissions-and-trust-policy" class="md-nav__link">
+    1. Create the IAM Role with Permissions and Trust Policy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-the-send_email-lambda-function" class="md-nav__link">
+    1. Create the send_email Lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-verify-email-in-amazon-ses" class="md-nav__link">
+    2. Verify Email in Amazon SES
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-create-step-1-sf-send-email-step" class="md-nav__link">
+    4. Create Step 1 SF (Send Email Step)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -279,7 +338,7 @@
   
     <li class="md-nav__item">
       <a href="../step5/" class="md-nav__link">
-        Step 5 - Call Back Pattern
+        Step 5 - Callback Pattern
       </a>
     </li>
   
@@ -332,6 +391,44 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-the-iam-role-with-permissions-and-trust-policy" class="md-nav__link">
+    1. Create the IAM Role with Permissions and Trust Policy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-the-send_email-lambda-function" class="md-nav__link">
+    1. Create the send_email Lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-verify-email-in-amazon-ses" class="md-nav__link">
+    2. Verify Email in Amazon SES
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-create-step-1-sf-send-email-step" class="md-nav__link">
+    4. Create Step 1 SF (Send Email Step)
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -346,9 +443,43 @@
                   
 
 
-  <h1>Step 1 - Getting started</h1>
-
-<p>Step Function code reference - <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step1.json">step1.json</a></p>
+<p><a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step1.json">step1.json</a></p>
+<h1 id="step-function-workshop-step-1-creating-a-basic-workflow-to-send-email">Step Function Workshop: Step 1 creating a basic workflow to send email.</h1>
+<h2 id="1-create-the-iam-role-with-permissions-and-trust-policy">1. Create the IAM Role with Permissions and Trust Policy</h2>
+<ol>
+<li>Navigate to the <strong>IAM</strong> service in the AWS Management Console.</li>
+<li>Click on <strong>Roles</strong> in the left-hand menu, then click <strong>Create role</strong>.</li>
+<li>Add a custom <strong>trust policy</strong> that allows Lambda to assume this role add it from [here] (https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/iam/trust_policy.json)</li>
+<li>Add a role from copy from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/iam/permissions.json">here</a></li>
+<li>Name the role (e.g., <code>LambdaSendEmailRole</code>) and finish creating the role.</li>
+</ol>
+<h2 id="1-create-the-send_email-lambda-function">1. Create the <code>send_email</code> Lambda function</h2>
+<ol>
+<li>Open the AWS Management Console and navigate to the <strong>Lambda</strong> service.</li>
+<li>Click <strong>Create function</strong> and choose the <strong>Author from scratch</strong> option.</li>
+<li>Name the function <code>send_email</code>.</li>
+<li>Select a runtime, such as <strong>Python 3.12</strong>.</li>
+<li>Under <strong>Permissions</strong>, create or choose an existing execution role that grants the Lambda function access to send emails (SES or a similar service).</li>
+<li>In the code editor, write a function that sends an email copy it from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/send_email.py">here</a>.</li>
+<li>Click <strong>Deploy</strong> after writing the code.</li>
+</ol>
+<h2 id="2-verify-email-in-amazon-ses">2. Verify Email in Amazon SES</h2>
+<ol>
+<li>Navigate to the <strong>Amazon SES</strong> service in the AWS Management Console.</li>
+<li>In the left-hand menu, select <strong>Email Addresses</strong>.</li>
+<li>Click <strong>Verify a New Email Address</strong> and enter the email address from which you'll be sending emails.</li>
+<li>Click <strong>Verify This Email Address</strong>. An email will be sent to that address.</li>
+<li>Open the email and click the verification link to confirm.</li>
+<li>After verification, your email address will be marked as <strong>verified</strong> in the SES console, allowing you to send emails from this address.</li>
+</ol>
+<h2 id="4-create-step-1-sf-send-email-step">4. Create Step 1 SF (Send Email Step)</h2>
+<ol>
+<li>Go to the <strong>Step Functions</strong> service in the AWS Management Console.</li>
+<li>Click on <strong>Create state machine</strong>.</li>
+<li>Choose a <strong>Standard</strong></li>
+<li>In the state machine definition, you can select option as shown in demo or copy this as json from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step1.json">here</a>:</li>
+<li>Name the state machine (e.g., <code>SendEmailStateMachine</code>), review, and create it.</li>
+</ol>
 
 
 
