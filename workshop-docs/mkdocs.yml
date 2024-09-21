@@ -15,7 +15,7 @@ nav:
   - Step 3 - Intro to Direct Integrations: step3.md
   - Understanding Input & Output Processing: io.md
   - Step 4 - Intro to Map State: step4.md
-  - Step 5 - Call Back Pattern: step5.md
+  - Step 5 - Callback Pattern: step5.md
   - Scheduling Your Step Function: schedule.md
   - Sample Input: sample-input.md
 
