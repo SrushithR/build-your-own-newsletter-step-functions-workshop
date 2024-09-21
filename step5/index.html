@@ -13,7 +13,7 @@
     
     
       
-        <title>Step 5 - Call Back Pattern - Build your own Newsletter using Step Functions</title>
+        <title>Step 5 - Callback Pattern - Build your own Newsletter using Step Functions</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#callback-pattern" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Step 5 - Call Back Pattern
+              Step 5 - Callback Pattern
             
           </span>
         </div>
@@ -283,12 +283,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Step 5 - Call Back Pattern
+          Step 5 - Callback Pattern
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Step 5 - Call Back Pattern
+        Step 5 - Callback Pattern
       </a>
       
         
@@ -305,8 +305,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
+  <a href="#callback-pattern" class="md-nav__link">
+    Callback Pattern
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-send_approval_email-lambda-function" class="md-nav__link">
+    Step 1: Create send_approval_email lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-manage_notification_status-lambda-function" class="md-nav__link">
+    Step 2: Create manage_notification_status lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-create-function-url-for-manage_notification_status" class="md-nav__link">
+    Step 3: Create Function URL for manage_notification_status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-update-manage_notification_status-lambda-function" class="md-nav__link">
+    Step 4: Update manage_notification_status lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-create-step5-step-function" class="md-nav__link">
+    Step 5: Create step5 step function
   </a>
   
 </li>
@@ -374,8 +409,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
+  <a href="#callback-pattern" class="md-nav__link">
+    Callback Pattern
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-send_approval_email-lambda-function" class="md-nav__link">
+    Step 1: Create send_approval_email lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-manage_notification_status-lambda-function" class="md-nav__link">
+    Step 2: Create manage_notification_status lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-create-function-url-for-manage_notification_status" class="md-nav__link">
+    Step 3: Create Function URL for manage_notification_status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-update-manage_notification_status-lambda-function" class="md-nav__link">
+    Step 4: Update manage_notification_status lambda function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-create-step5-step-function" class="md-nav__link">
+    Step 5: Create step5 step function
   </a>
   
 </li>
@@ -395,10 +465,22 @@
                   
 
 
-  <h1>Step 5 - Call Back Pattern</h1>
+  <h1>Step 5 - Callback Pattern</h1>
 
-<h2 id="_1"></h2>
-<p>Step Function code reference - <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/.json">step5.json</a></p>
+<h2 id="callback-pattern">Callback Pattern</h2>
+<p>Now let's add a manual step to get an approval from the admin before the email blast can be sent. We will leverage the callback pattern for the same.</p>
+<p>Please follow these steps for this part of the workshop:</p>
+<h2 id="step-1-create-send_approval_email-lambda-function">Step 1: Create send_approval_email lambda function</h2>
+<p>Create a new lambda function to send the approval email to the admin. You can find the code for this <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/send_approval_email.py">here</a>. This lambda function will send the original email with the subject, along with an approval and rejection link.</p>
+<h2 id="step-2-create-manage_notification_status-lambda-function">Step 2: Create manage_notification_status lambda function</h2>
+<p>This lambda function will be the listener and react to what happens when the admin approves or rejects. You can find the lambda function code <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/manage_notification_status.py">here</a>.</p>
+<p>This lambda function accepts the status and the task token passed via the function URL. Now, lets create a function URL</p>
+<h2 id="step-3-create-function-url-for-manage_notification_status">Step 3: Create Function URL for manage_notification_status</h2>
+<p>Create a function URL by navigating to the <code>Configuration</code> tab, <code>Function URL</code> section and clicking on the <code>Create function URL</code> button. For the Auth part, please select <code>None</code> and <code>Save</code> the details. This will create a publicly accessible URL for your lambda function. Keep it safe, we need to use it in the <code>manage_notification_status</code> lambda function</p>
+<h2 id="step-4-update-manage_notification_status-lambda-function">Step 4: Update <code>manage_notification_status</code> lambda function</h2>
+<p>Update the lambda function code and add the function URL created in the previous step</p>
+<h2 id="step-5-create-step5-step-function">Step 5: Create <code>step5</code> step function</h2>
+<p>Step Function code reference - <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step5.json">step5.json</a></p>
 
 
 
