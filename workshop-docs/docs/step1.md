@@ -32,7 +32,7 @@
 1. Go to the **Step Functions** service in the AWS Management Console.
 2. Click on **Create state machine**.
 3. Choose a **Standard**
-4. In the state machine definition, you can select option as shown in demo or copy this as json from [here](https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step1.json):
+4. In the state machine definition, you can select option as shown in demo or copy this as json from [here](https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step1.json)
 5. Name the state machine (e.g., `SendEmailStateMachine`), review, and create it.
 
 Reference to the step function ASL - [step1.json](https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step1.json)
