@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#schedule-step-function-via-aws-eventbridge" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -291,10 +296,43 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Scheduling Your Step Function
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Scheduling Your Step Function
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-an-eventbridge-rule-to-trigger-the-step-function" class="md-nav__link">
+    1. Create an EventBridge Rule to Trigger the Step Function
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -332,6 +370,23 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-create-an-eventbridge-rule-to-trigger-the-step-function" class="md-nav__link">
+    1. Create an EventBridge Rule to Trigger the Step Function
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -346,9 +401,26 @@
                   
 
 
-  <h1>Scheduling Your Step Function</h1>
-
-
+<h1 id="schedule-step-function-via-aws-eventbridge">Schedule Step Function via AWS EventBridge</h1>
+<h2 id="1-create-an-eventbridge-rule-to-trigger-the-step-function">1. Create an EventBridge Rule to Trigger the Step Function</h2>
+<ol>
+<li>Navigate to the <strong>Amazon EventBridge</strong> service in the AWS Management Console.</li>
+<li>In the left-hand menu, click <strong>Rules</strong>, then click <strong>Create rule</strong>.</li>
+<li>Set the <strong>Name</strong> for the rule (e.g., <code>ScheduleSendEmails</code>).</li>
+<li>Under <strong>Define pattern</strong>, select <strong>Event Source</strong> as <strong>EventBridge Schedule</strong>.</li>
+<li>Define your schedule pattern:<ul>
+<li>For a fixed interval (e.g., every day at 12:00 PM), choose <strong>Cron expression</strong> and use an expression like <code>cron(0 12 * * ? *)</code>.</li>
+<li>Or, set a <strong>Rate</strong> expression for a more generic interval (e.g., every hour, day, etc.).</li>
+</ul>
+</li>
+<li>In the <strong>Select targets</strong> section, choose <strong>Step Functions state machine</strong> as the target.</li>
+<li>Select the Step Function created in Step 3/4/5 (<code>DDBDirectAndSendEmailStateMachine</code>).</li>
+<li>Click <strong>Create</strong> to finalize the rule.</li>
+</ol>
+<p>Once the rule is created, EventBridge will trigger the Step Function according to the schedule you specified, initiating the process to fetch subscribers from DynamoDB and send emails.</p>
+<blockquote>
+<p><strong>Note:</strong> You can modify the schedule by updating the EventBridge rule at any time.</p>
+</blockquote>
 
 
 

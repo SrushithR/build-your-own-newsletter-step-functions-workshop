@@ -264,15 +264,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-create-step-3-sf-direct-integration-with-dynamodb-send-email" class="md-nav__link">
-    1. Create Step 3 SF (Direct Integration with DynamoDB + Send Email)
+  <a href="#1-create-the-send_email_v3-lambda-function" class="md-nav__link">
+    1. Create the send_email_v3 Lambda function
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-create-the-send_email_v3-lambda-function" class="md-nav__link">
-    2. Create the send_email_v3 Lambda function
+  <a href="#2-create-step-3-sf-direct-integration-with-dynamodb-send-email" class="md-nav__link">
+    2. Create Step 3 SF (Direct Integration with DynamoDB + Send Email)
   </a>
   
 </li>
@@ -387,15 +387,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-create-step-3-sf-direct-integration-with-dynamodb-send-email" class="md-nav__link">
-    1. Create Step 3 SF (Direct Integration with DynamoDB + Send Email)
+  <a href="#1-create-the-send_email_v3-lambda-function" class="md-nav__link">
+    1. Create the send_email_v3 Lambda function
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-create-the-send_email_v3-lambda-function" class="md-nav__link">
-    2. Create the send_email_v3 Lambda function
+  <a href="#2-create-step-3-sf-direct-integration-with-dynamodb-send-email" class="md-nav__link">
+    2. Create Step 3 SF (Direct Integration with DynamoDB + Send Email)
   </a>
   
 </li>
@@ -416,14 +416,7 @@
 
 
 <h1 id="step-3-direct-integration-with-dynamodb-and-send-email">Step 3: Direct Integration with DynamoDB and Send Email</h1>
-<h2 id="1-create-step-3-sf-direct-integration-with-dynamodb-send-email">1. Create Step 3 SF (Direct Integration with DynamoDB + Send Email)</h2>
-<ol>
-<li>Go to the <strong>Step Functions</strong> service in the AWS Management Console.</li>
-<li>Click on <strong>Create state machine</strong>.</li>
-<li>In the state machine definition,add code from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step3.json">here as json</a></li>
-<li>Name the state machine (e.g., <code>DDBDirectAndSendEmailStateMachine</code>), review, and create it.</li>
-</ol>
-<h2 id="2-create-the-send_email_v3-lambda-function">2. Create the <code>send_email_v3</code> Lambda function</h2>
+<h2 id="1-create-the-send_email_v3-lambda-function">1. Create the <code>send_email_v3</code> Lambda function</h2>
 <ol>
 <li>Navigate to the <strong>Lambda</strong> service in the AWS Management Console.</li>
 <li>Click <strong>Create function</strong> and choose the <strong>Author from scratch</strong> option.</li>
@@ -432,6 +425,13 @@
 <li>In the code editor, you can copy the code from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/lambda-functions/send_email_v3.py">here</a></li>
 <li>Under <strong>Permissions</strong>, use the IAM role created in Step 1 (with permissions to send emails).</li>
 <li>Click <strong>Deploy</strong>.</li>
+</ol>
+<h2 id="2-create-step-3-sf-direct-integration-with-dynamodb-send-email">2. Create Step 3 SF (Direct Integration with DynamoDB + Send Email)</h2>
+<ol>
+<li>Go to the <strong>Step Functions</strong> service in the AWS Management Console.</li>
+<li>Click on <strong>Create state machine</strong>.</li>
+<li>In the state machine definition,add code from <a href="https://github.com/SrushithR/build-your-own-newsletter-step-functions-workshop/blob/main/step-functions/step3.json">here as json</a></li>
+<li>Name the state machine (e.g., <code>DDBDirectAndSendEmailStateMachine</code>), review, and create it.</li>
 </ol>
 <blockquote>
 <p><strong>Note:</strong> The IAM role permission created in Step 1 can be reused for the <code>send_email_v3</code> Lambda function as well.</p>
